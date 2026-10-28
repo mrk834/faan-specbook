@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-paper: #ffffff;
+  --color-paper-2: #f3f4f1;
+  --color-paper-3: #e6e8e3;
+  --color-ink: #15181c;
+  --color-ink-2: #4a5058;
+  --color-ink-3: #8a9099;
+  --color-line: #d8dbd5;
+  --color-tag: #1849d6;
+  --color-tag-soft: #e8eefc;
+  --color-tag-deep: #10338f;
+  --color-ok: #1f7a4d;
+  --font-sans: var(--font-plex-kr), "Apple SD Gothic Neo", "Pretendard", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --shadow-panel: 0 1px 0 rgba(21, 24, 28, 0.06), 0 12px 32px -16px rgba(21, 24, 28, 0.25);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-feature-settings: "tnum" 1, "ss01" 1;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+}
+
+/* 마감 코드 태그 — 도면의 육각 마감 태그를 그대로 가져온 형태 */
+.hex-tag {
+  clip-path: polygon(14% 0, 86% 0, 100% 50%, 86% 100%, 14% 100%, 0 50%);
+}
+
+/* 잠긴 사양 필드 */
+.locked {
+  filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* 지도 타일 */
+.leaflet-container {
+  font-family: inherit;
+  background: var(--color-paper-2);
+}
+.map-tiles {
+  filter: grayscale(1) contrast(0.9) brightness(1.05);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-tag);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

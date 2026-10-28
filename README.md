@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# faan-specbook — 스펙북 프로토타입 v0.1
 
-## Getting Started
+건축가·인테리어 디자이너의 **스펙북**(마감표·일람표·상세도·제조사 사양서)을 올리고, 완공 사진의 각 요소를 그 사양에 연결하는 전문가용 아카이브의 첫 시안.
 
-First, run the development server:
+- 라이브: https://mrk834.github.io/faan-specbook/
+- 기획 초안과 질문: `/about/`
+- 사진 출처: `/credits/` (Wikimedia Commons CC). **사양 데이터는 전부 시연용 가상값.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 구조
+
+```
+src/lib/data.ts          데이터 모델(SpecItem·Hotspot·Photo·Project·Material) + 시연 데이터
+src/components/
+  HotspotViewer.tsx      사진 위 마감 코드 태그 + 사양 패널
+  SpecCard.tsx           공개/잠금 필드 카드 (구매 시뮬레이션)
+  ScheduleTable.tsx      실내재료마감표형 표
+  MapView.tsx            Leaflet 지도 (OSM 타일)
+  unlock.tsx             구매·구독 상태 (localStorage, 결제 없음)
+src/app/                 / 사례 / 자재 색인 / 지도 / 업로드 / 이용 방식 / 기획 초안 / 출처
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 개발
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+pnpm dev            # http://localhost:3000
+pnpm build          # 정적 내보내기 → out/
+NEXT_PUBLIC_BASE_PATH=/faan-specbook pnpm build   # GitHub Pages용
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+배포는 `main` push 시 GitHub Actions(`.github/workflows/pages.yml`)가 Pages로 올린다. Vercel로 옮길 때는 `NEXT_PUBLIC_BASE_PATH`를 비우면 된다.
